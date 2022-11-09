@@ -12,8 +12,8 @@ import publishsubscribe.Classes.Publication;
  * @author AP57630
  */
 public interface IPublisher extends IClient{
-    public void advertise(ITopic t, IPublication.Format format);
+    public void advertise(ITopic t);
     public void publish(ITopic t, Publication p);
 
-    public void unadvertise(ITopic t, IPublication.Format format);
+    public void unadvertise(ITopic t);
 }

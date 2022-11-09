@@ -16,10 +16,6 @@ import java.io.Serializable;
  */
 public interface IPublication extends Serializable {
     enum Format{
-    XML, JSON;
-}
-
-    public Document fromCanonicaltoXML ();
-    public JSONObject fromCanonicaltoJSON ();
-
+        XML, JSON;
+    }
 }

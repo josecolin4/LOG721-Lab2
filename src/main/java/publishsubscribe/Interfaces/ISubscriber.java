@@ -10,7 +10,7 @@ package publishsubscribe.Interfaces;
  * @author AP57630
  */
 public interface ISubscriber extends IClient {
-    public void subscribe(ITopic t, IPublication.Format format);
-    public void unsubscribe(ITopic t, IPublication.Format format);
+    public void subscribe(ITopic t);
+    public void unsubscribe(ITopic t);
     public void listentoBroker();
 }

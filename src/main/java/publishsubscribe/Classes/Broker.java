@@ -1,5 +1,6 @@
 package publishsubscribe.Classes;
 
+import kmoyenne.test.Test1Iteration;
 import publishsubscribe.Interfaces.IBroker;
 
 import java.io.IOException;
@@ -30,6 +31,8 @@ public class Broker implements IBroker {
 
     private List<Map.Entry<Identity, Topic>> waitingList;
 
+    private boolean brokerListening = false;
+
     public Broker(long id, int port) {
         this.id = id;
         this.port = port;
@@ -40,6 +43,7 @@ public class Broker implements IBroker {
     @Override
     public void listenToNetwork() throws IOException {
         socketServer = new ServerSocket(port);
+        brokerListening = true;
         for (;;) {
             Socket s = socketServer.accept();
             ObjectInputStream ois = new ObjectInputStream(s.getInputStream());
@@ -140,5 +144,9 @@ public class Broker implements IBroker {
                 return;
             }
         }
+    }
+
+    public boolean isBrokerListening() {
+        return brokerListening;
     }
 }

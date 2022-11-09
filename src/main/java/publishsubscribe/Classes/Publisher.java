@@ -23,13 +23,13 @@ public class Publisher extends Client implements IPublisher {
     }
 
     @Override
-    public void advertise(ITopic t, IPublication.Format format) {
+    public void advertise(ITopic t) {
         try {
             connect();
             ObjectOutputStream oos = new ObjectOutputStream(getSocket().getOutputStream());
             oos.writeObject(RequestType.ADVERTISE);
             oos.flush();
-            Identity id = new Identity(getId(), getPort(), format);
+            Identity id = new Identity(getId(), getPort());
             oos.writeObject(id);
             oos.flush();
             oos.writeObject(t);
@@ -59,7 +59,7 @@ public class Publisher extends Client implements IPublisher {
         }
     }
 
-    public void unadvertise(ITopic t, IPublication.Format format) {
+    public void unadvertise(ITopic t) {
         throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose
                                                                        // Tools | Templates.
     }

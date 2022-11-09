@@ -1,5 +1,7 @@
 package publishsubscribe.Classes;
 
+import kmoyenne.MapReduce;
+import kmoyenne.MapResult;
 import publishsubscribe.Interfaces.IPublication;
 import org.json.*;
 import org.w3c.dom.Document;
@@ -23,9 +25,9 @@ import javax.xml.parsers.ParserConfigurationException;
 public class Publication implements IPublication {
 
     private Topic topic;
-    private String content;
+    private MapResult content;
 
-    public Publication(Topic topic, String content) {
+    public Publication(Topic topic, MapResult content) {
         this.topic = topic;
         this.content = content;
     }
@@ -34,7 +36,7 @@ public class Publication implements IPublication {
         return this.topic;
     }
 
-    public String getContent() {
+    public MapResult getContent() {
         return content;
     }
 
@@ -42,72 +44,7 @@ public class Publication implements IPublication {
         this.topic = topic;
     }
 
-    public void setContent(String content) {
+    public void setContent(MapResult content) {
         this.content = content;
     }
-
-    public void fromXMLtoCanonical(Document xmlDocument) {
-        xmlDocument.getDocumentElement().normalize();
-        NodeList listPublication = xmlDocument.getElementsByTagName("message");
-        Element elementPublication = (Element) listPublication.item(0);
-
-        this.topic = new Topic(elementPublication.getElementsByTagName("topicname").item(0).getTextContent());
-        this.content = elementPublication.getElementsByTagName("content").item(0).getTextContent();
-    }
-
-    @Override
-    public Document fromCanonicaltoXML() {
-        Document xmlFile = null;
-        try {
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            xmlFile = db.newDocument();
-
-            Element publication = xmlFile.createElement("publication");
-            xmlFile.appendChild(publication);
-
-            Element message1 = xmlFile.createElement("message");
-            publication.appendChild(message1);
-            message1.setAttribute("messageno", "1");
-
-            Element topicname1 = xmlFile.createElement("topicname");
-            topicname1.appendChild(xmlFile.createTextNode(this.topic.getName()));
-            message1.appendChild(topicname1);
-
-            Element content1 = xmlFile.createElement("content");
-            content1.appendChild(xmlFile.createTextNode(this.content));
-            message1.appendChild(content1);
-
-        } catch (ParserConfigurationException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        return xmlFile;
-    }
-
-    @Override
-    public JSONObject fromCanonicaltoJSON() {
-        JSONObject jso = new JSONObject();
-        JSONArray pubArr = new JSONArray();
-        JSONObject messageObj = new JSONObject();
-        messageObj.put("topic", this.topic.getName());
-        messageObj.put("content", this.content);
-        pubArr.put(messageObj);
-        jso.put("Publication", pubArr);
-        return jso;
-    }
-
-    public void fromJSONtoCanonical(JSONObject json) {
-
-        JSONArray jsonArray = json.getJSONArray("Publication");
-        for (int i = 0; i < jsonArray.length(); i++) {
-
-            JSONObject jsonobject = jsonArray.getJSONObject(i);
-            String content = jsonobject.get("content").toString();
-            setTopic(new Topic(jsonobject.get("topic").toString()));
-            setContent(content);
-        }
-    }
-
 }
