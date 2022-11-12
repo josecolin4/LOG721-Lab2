@@ -14,7 +14,7 @@ public class CsvUtils {
 
     public static List<Barycentre> extractBarycentres() {
         List<Barycentre> toReturn = new ArrayList<>();
-        try (Scanner scanner = new Scanner(new File("./src/main/resources/groups.csv"))) {
+        try (Scanner scanner = new Scanner(new File("resources/groups.csv"))) {
             scanner.next(); // skip first line
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
@@ -47,7 +47,7 @@ public class CsvUtils {
 
     public static List<Point> extractData() {
         List<Point> toReturn = new ArrayList<>();
-        try (Scanner scanner = new Scanner(new File("./src/main/resources/dataSimple.csv"))) {
+        try (Scanner scanner = new Scanner(new File("resources/dataSimple.csv"))) {
             scanner.next(); // skip first line
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
