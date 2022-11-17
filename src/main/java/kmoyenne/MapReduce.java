@@ -10,10 +10,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
 
 public class MapReduce {
 
     private List<Barycentre> barycentres;
+
+    private CountDownLatch compteur;
 
     /**
      * Association de chaque point avec un barycentre (shuffle).
@@ -24,7 +27,6 @@ public class MapReduce {
      */
     private Map<Barycentre, CurrentGroup> currentGroups;
 
-    private volatile int pointsLeftToProcess;
     private List<Publisher> mappers;
     private List<Subscriber> reducers;
 
@@ -59,12 +61,22 @@ public class MapReduce {
     }
 
     public void splitAndMap(List<Point> points) {
-        pointsLeftToProcess = points.size();
+        compteur = new CountDownLatch(points.size());
         // distribue les tâches sur les mappers
-        List<List<Point>> subdivisions = Lists.partition(points,
-                (int) Math.ceil(((double) points.size()) / ((double) mappers.size())));
-
+        List<List<Point>> subdivisions = new ArrayList<>();
+        for (int i = 0; i < mappers.size(); i++) {
+            subdivisions.add(new ArrayList<>());
+        }
         int i = 0;
+        for (Point point : points) {
+            subdivisions.get(i).add(point);
+            i++;
+            if (i >= subdivisions.size()) {
+                i = 0;
+            }
+        }
+
+        i = 0;
         for (List<Point> subdivision : subdivisions) {
             Publisher reducer = mappers.get(i);
             Thread thread = new Thread() {
@@ -83,14 +95,16 @@ public class MapReduce {
     }
 
     public void waitForReduceToFinish() {
-        while (pointsLeftToProcess > 0) {
-            Thread.onSpinWait();
-        };
+        try {
+            compteur.await();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public MapResult map(Point point) {
         Barycentre bestBarycentre = barycentres.get(0);
-        double bestDistance = Double.MAX_VALUE;
+        double bestDistance = point.distance(bestBarycentre);
         for (int i = 1; i < barycentres.size(); i++) {
             double distance = point.distance(barycentres.get(i));
             if (distance < bestDistance) {
@@ -99,16 +113,14 @@ public class MapReduce {
             }
         }
 
+
         return new MapResult(bestBarycentre, point);
     }
 
     public Void suffleAndReduce(MapResult mapResult) {
         CurrentGroup currentGroup = currentGroups.get(mapResult.getBarycentre());
         currentGroup.reduce(mapResult);
-        synchronized(this) {
-            pointsLeftToProcess--;
-        }
-
+        compteur.countDown();
         return null;
     }
 
@@ -117,6 +129,13 @@ public class MapReduce {
             barycentre.setLargeur(currentGroups.get(barycentre).getCurrentLargeur());
             barycentre.setPrix(currentGroups.get(barycentre).getCurrentPrix());
         }
+
+        // reset for next iteration
+        currentGroups.clear();
+        for (int i = 0; i < barycentres.size(); i++) {
+            Barycentre barycentreCopy = barycentres.get(i).clone();
+            currentGroups.put(barycentreCopy, new CurrentGroup());
+        }
     }
 
     public void printBaryCentres() {
@@ -124,5 +143,13 @@ public class MapReduce {
             System.out.println("barycentre " + barycentre.getId() + " --> largeur : " + barycentre.getLargeur()
                     + ", prix : " + barycentre.getPrix());
         }
+    }
+
+    public List<Barycentre> getBarycentres() {
+        List<Barycentre> cloneBarycentres = new ArrayList<>();
+        for(Barycentre barycentre : barycentres) {
+            cloneBarycentres.add(barycentre.clone());
+        }
+        return cloneBarycentres;
     }
 }

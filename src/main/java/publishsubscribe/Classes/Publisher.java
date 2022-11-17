@@ -26,7 +26,7 @@ public class Publisher extends Client implements IPublisher {
     public void advertise(ITopic t) {
         try {
             connect();
-            ObjectOutputStream oos = new ObjectOutputStream(getSocket().getOutputStream());
+            ObjectOutputStream oos = getOos();
             oos.writeObject(RequestType.ADVERTISE);
             oos.flush();
             Identity id = new Identity(getId(), getPort());
@@ -44,7 +44,7 @@ public class Publisher extends Client implements IPublisher {
     public void publish(ITopic t, Publication p) {
         try {
             connect();
-            ObjectOutputStream oos = new ObjectOutputStream(getSocket().getOutputStream());
+            ObjectOutputStream oos = getOos();
             oos.writeObject(RequestType.PUBLISH);
             oos.flush();
             oos.writeObject(new Identity(getId(), getPort()));
@@ -52,7 +52,6 @@ public class Publisher extends Client implements IPublisher {
             oos.writeObject(t);
             oos.flush();
             oos.writeObject(p);
-            oos.close();
             disconnect();
         } catch (IOException e) {
             throw new RuntimeException(e);

@@ -6,14 +6,13 @@ import kmoyenne.Point;
 import kmoyenne.utils.CsvUtils;
 import publishsubscribe.Classes.Broker;
 import publishsubscribe.Classes.Publisher;
-import publishsubscribe.Interfaces.IBroker;
 
 import java.io.IOException;
 import java.util.List;
 
 public class Test1Iteration {
 
-    public static final int NB_MAPPERS = 3;
+    public static final int NB_MAPPERS = 4;
 
     public static void main(String[] args) {
         // récupération des données

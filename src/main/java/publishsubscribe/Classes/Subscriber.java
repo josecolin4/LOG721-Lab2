@@ -33,7 +33,7 @@ public class Subscriber extends Client implements ISubscriber {
     public void subscribe(ITopic t) {
         try {
             connect();
-            ObjectOutputStream oos = new ObjectOutputStream(getSocket().getOutputStream());
+            ObjectOutputStream oos = getOos();
             oos.writeObject(RequestType.SUBSCRIBE);
             oos.flush();
             oos.writeObject(new Identity(getId(), getPort()));
@@ -50,7 +50,7 @@ public class Subscriber extends Client implements ISubscriber {
     public void unsubscribe(ITopic t) {
         try {
             connect();
-            ObjectOutputStream oos = new ObjectOutputStream(getSocket().getOutputStream());
+            ObjectOutputStream oos = getOos();
             oos.writeObject(RequestType.UNSUBSCRIBE);
             oos.flush();
             oos.writeObject(new Identity(getId(), getPort()));
@@ -71,6 +71,10 @@ public class Subscriber extends Client implements ISubscriber {
                 Socket s = serverSocket.accept();
                 ObjectInputStream ois = new ObjectInputStream(s.getInputStream());
                 Publication publication = (Publication) ois.readObject();
+
+                // DEBUG
+                //System.out.println("subscriber " + this.getId() + " à reçu " + publication.getContent());
+
                 function.apply(publication.getContent());
                 s.close();
             }

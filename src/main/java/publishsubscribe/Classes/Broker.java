@@ -51,20 +51,20 @@ public class Broker implements IBroker {
                 RequestType requestType = (RequestType) ois.readObject();
                 if (requestType == RequestType.ADVERTISE) {
                     // DEBUG
-                    System.out.println("addAdvertiser");
+                    //System.out.println("addAdvertiser");
                     addAdvertiser(ois);
                 } else if (requestType == RequestType.PUBLISH) {
                     // DEBUG
-                    System.out.println("publish");
+                    //System.out.println("publish");
                     publish(ois);
 
                 } else if (requestType == RequestType.UNSUBSCRIBE) {
                     // DEBUG
-                    System.out.println("unsubscribe");
+                    //System.out.println("unsubscribe");
                     unsubscribe(ois);
                 } else {
                     // DEBUG
-                    System.out.println("addSubscriber");
+                    //System.out.println("addSubscriber");
                     addSubsriber(ois);
                 }
             } catch (ClassNotFoundException e) {
@@ -80,15 +80,15 @@ public class Broker implements IBroker {
         if (!topics.contains(topicToAdd)) {
             topics.add(topicToAdd);
             topicToAdd.addPublisher(identity);
+
+            for (Map.Entry<Identity, Topic> waiting : waitingList) {
+                if (topicToAdd.isCompatible(waiting.getValue().getName())) {
+                    topicToAdd.addSubscriber(waiting.getKey());
+                }
+            }
         } else {
             topicToAdd = topics.get(topics.indexOf(topicToAdd));
             topicToAdd.addPublisher(identity);
-        }
-
-        for (Map.Entry<Identity, Topic> waiting : waitingList) {
-            if (topicToAdd.isCompatible(waiting.getValue().getName())) {
-                topicToAdd.addSubscriber(waiting.getKey());
-            }
         }
     }
 
@@ -98,7 +98,8 @@ public class Broker implements IBroker {
 
         // check if topicToSubscribe match any of the current publisher's topic
         for (Topic topic : topics) {
-            if (topic.isCompatible(topicToSubscribe.getName())) {
+            if (topic.isCompatible(topicToSubscribe.getName())
+                && !topic.getSub().contains(identity)) {
                 topic.addSubscriber(identity);
                 return;
             }

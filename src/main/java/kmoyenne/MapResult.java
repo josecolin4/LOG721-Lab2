@@ -19,4 +19,8 @@ public class MapResult implements Serializable {
     public Point getPoint() {
         return point;
     }
+
+    public String toString() {
+        return "barycentre : " + barycentre + " point : " + point;
+    }
 }
