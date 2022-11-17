@@ -5,11 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f43a1f93-afc0-449e-a52d-29b59c73e99a" name="Changes" comment="fix imports">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/kmoyenne/Barycentre.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/kmoyenne/CurrentGroup.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/kmoyenne/MapReduce.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/kmoyenne/MapResult.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/kmoyenne/Point.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/kmoyenne/test/Test1Iteration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/kmoyenne/test/TestCSV.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/kmoyenne/utils/CsvUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/data.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/dataSimple.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/groups.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kmoyenne/test/TestCSV.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kmoyenne/test/TestCSV.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kmoyenne/utils/CsvUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kmoyenne/utils/CsvUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/publishsubscribe/Classes/Broker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/publishsubscribe/Classes/Broker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/publishsubscribe/Classes/Publication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/publishsubscribe/Classes/Publication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/publishsubscribe/Classes/Publisher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/publishsubscribe/Classes/Publisher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/publishsubscribe/Classes/Subscriber.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/publishsubscribe/Classes/Subscriber.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/publishsubscribe/Interfaces/IPublication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/publishsubscribe/Interfaces/IPublication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/publishsubscribe/Interfaces/IPublisher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/publishsubscribe/Interfaces/IPublisher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/publishsubscribe/Interfaces/ISubscriber.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/publishsubscribe/Interfaces/ISubscriber.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,14 +90,12 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "C:/Workspace/LOG721-Lab2",
-    "project.structure.last.edited": "Modules",
+    "last_opened_file_path": "C:/Users/colin/IdeaProjects/Log721-Lab1",
+    "project.structure.last.edited": "SDKs",
     "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle"
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.importing"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -139,32 +154,14 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="TestCSV.testCSV" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Lab2.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="kmoyenne.test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="kmoyenne.test" />
-      <option name="MAIN_CLASS_NAME" value="kmoyenne.test.TestCSV" />
-      <option name="METHOD_NAME" value="testCSV" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <list>
       <item itemvalue="Application.Test1Iteration" />
       <item itemvalue="Application.TestCSV" />
       <item itemvalue="Gradle.Lab2 [build]" />
-      <item itemvalue="JUnit.TestCSV.testCSV" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Test1Iteration" />
-        <item itemvalue="JUnit.TestCSV.testCSV" />
         <item itemvalue="Application.TestCSV" />
         <item itemvalue="Gradle.Lab2 [build]" />
       </list>
